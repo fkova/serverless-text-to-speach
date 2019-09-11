@@ -1,0 +1,46 @@
+{
+  "name": "serverless-text-to-speech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bpd": "npm run build && npm run package && npm run deploy",
+    "test": "jest",
+    "test-cov": "jest --coverage",
+    "local-invoke": "sam local invoke -e ./src/schemas/event.json HelloWorldFunction -t sam.yaml",
+    "local-start-api": "sam local start-api -t sam.yaml",
+    "build": "webpack",
+    "package": "sam package --template-file sam.yaml --s3-bucket rahzel-package --output-template packaged.yml",
+    "deploy": "sam deploy --template-file packaged.yml --region us-east-2 --capabilities CAPABILITY_NAMED_IAM --stack-name text-to-speach-microservice"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.31",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.5",
+    "aws-sdk": "^2.526.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.1.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.6.3",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
