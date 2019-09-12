@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: nodejs8.10
+    Environment:
+      Variables:
+        DYNAMO_TABLE:
+          Ref: postsTable
+  Api:
+    Cors:
+      AllowMethods: '''*'''
+      AllowHeaders: '''*'''
+      AllowOrigin: '''*'''
+Resources:
+  SrcBucket:
+    Type: AWS::S3::Bucket
+  NewPostLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://rahzel-package/8e9a5428a0bc343916e0378e3adcfcfb
+      Handler: index.newPostLambda
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /api
+            Method: post
+  postsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: postsTable
+      AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5

@@ -87,6 +87,18 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/handlers/new-post-handler.ts":
+/*!******************************************!*\
+  !*** ./src/handlers/new-post-handler.ts ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\r\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nconst aws_sdk_1 = __webpack_require__(/*! aws-sdk */ \"aws-sdk\");\r\nconst uuid_1 = __webpack_require__(/*! uuid */ \"uuid\");\r\nconst documentClient = new aws_sdk_1.DynamoDB.DocumentClient();\r\nconst snsClient = new aws_sdk_1.SNS();\r\nexports.default = (event) => __awaiter(void 0, void 0, void 0, function* () {\r\n    const recordId = uuid_1.v1();\r\n    console.log('Generating new DynamoDB record with id: ' + recordId);\r\n    console.log('Table: ' + JSON.stringify(process.env, null, 2));\r\n    const voice = event.body.voice;\r\n    const text = event.body.text;\r\n    /*\r\n    const params = {\r\n        TableName: process.env.DYNAMO_TABLE,\r\n        Item: {\r\n            'id': recordId,\r\n            'text': text,\r\n            'voice': voice,\r\n            'status': 'PROCESSING'\r\n        }\r\n    }\r\n\r\n    const result = await documentClient.put(params).promise();\r\n\r\n    console.log(result);\r\n    */\r\n    return recordId;\r\n});\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmV3LXBvc3QtaGFuZGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9oYW5kbGVycy9uZXctcG9zdC1oYW5kbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQUEscUNBQXdDO0FBQ3hDLCtCQUFrQztBQUVsQyxNQUFNLGNBQWMsR0FBRyxJQUFJLGtCQUFRLENBQUMsY0FBYyxFQUFFLENBQUM7QUFDckQsTUFBTSxTQUFTLEdBQUcsSUFBSSxhQUFHLEVBQUUsQ0FBQztBQUU1QixrQkFBZSxDQUFPLEtBQVUsRUFBRSxFQUFFO0lBQ2hDLE1BQU0sUUFBUSxHQUFHLFNBQUksRUFBRSxDQUFDO0lBRXhCLE9BQU8sQ0FBQyxHQUFHLENBQUMsMENBQTBDLEdBQUcsUUFBUSxDQUFDLENBQUM7SUFDbkUsT0FBTyxDQUFDLEdBQUcsQ0FBQyxTQUFTLEdBQUUsSUFBSSxDQUFDLFNBQVMsQ0FBQyxPQUFPLENBQUMsR0FBRyxFQUFDLElBQUksRUFBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0lBRTNELE1BQU0sS0FBSyxHQUFHLEtBQUssQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDO0lBQy9CLE1BQU0sSUFBSSxHQUFHLEtBQUssQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDO0lBRTdCOzs7Ozs7Ozs7Ozs7OztNQWNFO0lBQ0YsT0FBTyxRQUFRLENBQUM7QUFDcEIsQ0FBQyxDQUFBLENBQUMifQ==\n\n//# sourceURL=webpack:///./src/handlers/new-post-handler.ts?");
+
+/***/ }),
+
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
@@ -95,7 +107,29 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\r\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nexports.hello = (event) => __awaiter(void 0, void 0, void 0, function* () {\r\n    let response;\r\n    console.log('paff');\r\n    try {\r\n        // const ret = await axios(url);\r\n        response = {\r\n            'statusCode': 200,\r\n            'body': JSON.stringify({\r\n                message: 'hello world',\r\n            })\r\n        };\r\n    }\r\n    catch (err) {\r\n        console.log(err);\r\n        return err;\r\n    }\r\n    return response;\r\n});\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7QUFJQSxPQUFPLENBQUMsS0FBSyxHQUFHLENBQU8sS0FBc0IsRUFBRSxFQUFFO0lBQzdDLElBQUksUUFBUSxDQUFBO0lBRVosT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQztJQUNwQixJQUFJO1FBQ0EsZ0NBQWdDO1FBQ2hDLFFBQVEsR0FBRztZQUNQLFlBQVksRUFBRSxHQUFHO1lBQ2pCLE1BQU0sRUFBRSxJQUFJLENBQUMsU0FBUyxDQUFDO2dCQUNuQixPQUFPLEVBQUUsYUFBYTthQUV6QixDQUFDO1NBQ0wsQ0FBQTtLQUNKO0lBQUMsT0FBTyxHQUFHLEVBQUU7UUFDVixPQUFPLENBQUMsR0FBRyxDQUFDLEdBQUcsQ0FBQyxDQUFDO1FBQ2pCLE9BQU8sR0FBRyxDQUFDO0tBQ2Q7SUFFRCxPQUFPLFFBQVEsQ0FBQTtBQUNuQixDQUFDLENBQUEsQ0FBQyJ9\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nconst new_post_handler_1 = __importDefault(__webpack_require__(/*! ./handlers/new-post-handler */ \"./src/handlers/new-post-handler.ts\"));\r\nexports.newPostLambda = new_post_handler_1.default;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxtRkFBd0U7QUFHM0QsUUFBQSxhQUFhLEdBQUcsMEJBQWMsQ0FBQyJ9\n\n//# sourceURL=webpack:///./src/index.ts?");
+
+/***/ }),
+
+/***/ "aws-sdk":
+/*!**************************!*\
+  !*** external "aws-sdk" ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"aws-sdk\");\n\n//# sourceURL=webpack:///external_%22aws-sdk%22?");
+
+/***/ }),
+
+/***/ "uuid":
+/*!***********************!*\
+  !*** external "uuid" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"uuid\");\n\n//# sourceURL=webpack:///external_%22uuid%22?");
 
 /***/ })
 

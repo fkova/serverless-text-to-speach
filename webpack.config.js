@@ -1,4 +1,5 @@
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     entry: './src/index.ts',
@@ -13,11 +14,7 @@ module.exports = {
             },
         ]
     },
-    externals: {
-        // These modules are already installed on the Lambda instance.
-        'awslambda': 'awslambda',
-        'dynamodb-doc': 'dynamodb-doc'
-    },
+    externals: [nodeExternals()],
     node: {
         // Allow these globals.
         __filename: false,

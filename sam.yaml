@@ -18,17 +18,17 @@ Resources:
   SrcBucket:
     Type: AWS::S3::Bucket
 
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  NewPostLambda:
+    Type: AWS::Serverless::Function 
     Properties:
       CodeUri: './dist'
-      Handler: index.hello
+      Handler: index.newPostLambda
       Events:
         HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Type: Api 
           Properties:
-            Path: /hello
-            Method: get
+            Path: /api
+            Method: post
    
   postsTable:
     Type: AWS::DynamoDB::Table
@@ -44,15 +44,15 @@ Resources:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
   
-  SnsTopic:
-    Type: AWS::SNS::Topic
+  # SnsTopic:
+  #   Type: AWS::SNS::Topic
   
-  LambdaPostsReaderRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: 'LambdaPostsReaderRole'
+  # LambdaPostsReaderRole:
+  #   Type: AWS::IAM::Role
+  #   Properties:
+  #     RoleName: 'LambdaPostsReaderRole'
 
-Outputs:
+#Outputs:
   # HelloWorldApi:
   #   Description: "API Gateway endpoint URL for Prod stage for Hello World function"
   #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"

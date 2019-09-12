@@ -1,13 +1,12 @@
-# sam-app
+# Stack
 
 ![cloudcraft](TTP.png)
 
 ## Requirements
 
 * AWS CLI already configured with Administrator permission
-* [NodeJS 10.10+ installed](https://nodejs.org/en/download/releases/)
-* [Docker installed](https://www.docker.com/community-edition)
-
+* NodeJS 8+ installed
+* Docker installed
 
 **Invoking function locally using a local sample payload**
 ```
@@ -23,13 +22,13 @@ npm local-start-api
 ## Packaging and deployment
 
 ```
-npm build
-npm package
-npm deploy
+npm run build
+npm run package
+npm run deploy
 
 or
 
-npm bpd
+npm run bpd
 ```
 
 ## Fetch, tail, and filter Lambda function logs
