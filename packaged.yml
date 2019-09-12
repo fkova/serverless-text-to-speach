@@ -8,6 +8,8 @@ Globals:
       Variables:
         DYNAMO_TABLE:
           Ref: postsTable
+        SNS_TOPIC:
+          Ref: SnsTopic
   Api:
     Cors:
       AllowMethods: '''*'''
@@ -16,17 +18,58 @@ Globals:
 Resources:
   SrcBucket:
     Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+  AudioBucket:
+    Type: AWS::S3::Bucket
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: SrcBucket
+      PolicyDocument:
+        Statement:
+        - Sid: PublicReadForGetBucketObjects
+          Effect: Allow
+          Principal: '*'
+          Action: s3:GetObject
+          Resource:
+            Fn::Sub: arn:aws:s3:::${SrcBucket}/*
   NewPostLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://rahzel-package/8e9a5428a0bc343916e0378e3adcfcfb
+      CodeUri: s3://rahzel-package/079f21866fd84bce851092745f07bd46
       Handler: index.newPostLambda
+      Role:
+        Fn::GetAtt:
+        - MyLambdaRole
+        - Arn
       Events:
-        HelloWorld:
+        Api1:
           Type: Api
           Properties:
             Path: /api
             Method: post
+  AudioConverterLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://rahzel-package/079f21866fd84bce851092745f07bd46
+      Handler: index.audioConverterLambda
+      Role:
+        Fn::GetAtt:
+        - MyLambdaRole
+        - Arn
+      Policies:
+      - AWSLambdaExecute
+      Events:
+        SNS1:
+          Type: SNS
+          Properties:
+            Topic:
+              Ref: SnsTopic
   postsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -40,3 +83,51 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
+  SnsTopic:
+    Type: AWS::SNS::Topic
+  MyLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Action:
+          - sts:AssumeRole
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+            - sns.amazonaws.com
+            - apigateway.amazonaws.com
+  MyLambdaPolicy:
+    Type: AWS::IAM::Policy
+    DependsOn:
+    - MyLambdaRole
+    Properties:
+      PolicyName: MyLambdaPolicy
+      Roles:
+      - Ref: MyLambdaRole
+      PolicyDocument:
+        Statement:
+        - Effect: Allow
+          Action:
+          - polly:SynthesizeSpeech
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - sns:Publish
+          - s3:PutObject
+          - s3:PutObjectAcl
+          - s3:GetBucketLocation
+          - logs:CreateLogGroup
+          - logs:CreateLogStream
+          - logs:PutLogEvents
+          Resource:
+          - '*'
+Outputs:
+  WebsiteURL:
+    Value:
+      Fn::GetAtt:
+      - SrcBucket
+      - WebsiteURL

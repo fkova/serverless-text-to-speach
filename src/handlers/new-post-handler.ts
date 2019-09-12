@@ -8,12 +8,11 @@ export default async (event: any) => {
     const recordId = uuid();
 
     console.log('Generating new DynamoDB record with id: ' + recordId);
-    console.log('Table: '+ JSON.stringify(process.env,null,2));
-    
-    const voice = event.body.voice;
-    const text = event.body.text;
 
-    /*
+    const body = JSON.parse(event.body)
+    const voice = body.voice;
+    const text = body.text;
+ 
     const params = {
         TableName: process.env.DYNAMO_TABLE,
         Item: {
@@ -24,9 +23,20 @@ export default async (event: any) => {
         }
     }
 
-    const result = await documentClient.put(params).promise();
+    await documentClient.put(params).promise()
+    .then(() => {
+        console.log('posted in db');
+    })
+    .catch((err)=> {
+        console.log(err);
+    });
 
-    console.log(result);
-    */
-    return recordId;
+    await snsClient.publish({
+            Message: recordId,
+            TopicArn: process.env.SNS_TOPIC
+        }).promise();
+
+    return {
+        statusCode: 200
+    }
 };
