@@ -11,7 +11,7 @@
     "local-start-api": "sam local start-api -t sam.yaml",
     "build": "webpack",
     "package": "sam package --template-file sam.yaml --s3-bucket rahzel-package --output-template packaged.yml",
-    "deploy": "sam deploy --template-file packaged.yml --region us-east-2 --capabilities CAPABILITY_NAMED_IAM --stack-name text-to-speach-microservice"
+    "deploy": "sam deploy --template-file packaged.yml --region us-east-2 --capabilities CAPABILITY_NAMED_IAM --stack-name tts-microservice"
   },
   "keywords": [],
   "author": "",
