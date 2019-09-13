@@ -1,10 +1,11 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+import { APIGatewayEvent } from 'aws-lambda';
+import { ResponseFactory } from '../factories/response-factory';
 
-export default async (event: any) => {
-    console.log('event: '+JSON.stringify(event,null,2));
-
+export default async (event: APIGatewayEvent) => {
     const dc = new DocumentClient();
     const postId = event.pathParameters.id;
+
     var items;
 
     if(postId == "*"){
@@ -20,13 +21,5 @@ export default async (event: any) => {
         }).promise();
     }
 
-    console.log(items);
-
-    return {
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        },
-        statusCode: 200,
-        body: JSON.stringify(items)
-    }
+    return ResponseFactory.generateSuccessReaponse(items);
 };

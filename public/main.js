@@ -17,10 +17,10 @@ const updateList = async () => {
     for(const e of result.Items){
         htmlContent+=`
         <tr>
-            <th scope="row">${e.id}</th>
-            <td>${e.voice}</td>
-            <td>${e.text}</td>
-            <td>${e.status}</td>
+            <th scope="row" class="align-middle">${e.id}</th>
+            <td class="align-middle">${e.voice}</td>
+            <td class="align-middle">${e.text}</td>
+            <td class="align-middle">${e.status}</td>
             <td>
                 <audio controls>
                     <source src="${e.url}" type="audio/mpeg">

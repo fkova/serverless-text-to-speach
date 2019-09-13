@@ -43,7 +43,7 @@ Resources:
   NewPostLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://rahzel-package/83e62fffca9926e23f390098666b784a
+      CodeUri: s3://rahzel-package/19ab01976e7348865946cdf61e59ebdc
       Handler: index.newPostLambda
       Role:
         Fn::GetAtt:
@@ -58,7 +58,7 @@ Resources:
   GetPostLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://rahzel-package/83e62fffca9926e23f390098666b784a
+      CodeUri: s3://rahzel-package/19ab01976e7348865946cdf61e59ebdc
       Handler: index.getPostLambda
       Role:
         Fn::GetAtt:
@@ -73,7 +73,7 @@ Resources:
   AudioConverterLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://rahzel-package/83e62fffca9926e23f390098666b784a
+      CodeUri: s3://rahzel-package/19ab01976e7348865946cdf61e59ebdc
       Handler: index.audioConverterLambda
       Role:
         Fn::GetAtt:
