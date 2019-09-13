@@ -1,6 +1,6 @@
 # Stack
 
-![cloudcraft](TTP.png)
+![cloudcraft](public\TTP.png)
 
 ## Requirements
 

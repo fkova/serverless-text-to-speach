@@ -130,3 +130,4 @@ $RECYCLE.BIN/
 
 dist
 package-lock.json
+packaged.yml
