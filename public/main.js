@@ -1,3 +1,5 @@
+const apiEndpoint = "https://dzu0bd5gie.execute-api.us-east-2.amazonaws.com/Prod/api"
+
 $(document).ready(($)=> {
     $('.loader').show();
     updateList();
@@ -10,7 +12,7 @@ $(document).ready(($)=> {
 });
 
 const updateList = async () => {
-    const result = await $.get("https://dzu0bd5gie.execute-api.us-east-2.amazonaws.com/Prod/api/*").promise();
+    const result = await $.get(apiEndpoint+"/*").promise();
     let htmlContent = "";
     $('.loader').hide();
 
@@ -39,7 +41,7 @@ const postText = async () => {
     $('#textBox1').val(''); 
 
     
-    await $.post("https://dzu0bd5gie.execute-api.us-east-2.amazonaws.com/Prod/api", JSON.stringify({
+    await $.post(apiEndpoint, JSON.stringify({
         voice: "Amy",
         text: inputText
     })).promise()
