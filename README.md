@@ -16,7 +16,7 @@ npm local-invoke
 **Invoking function locally through local API Gateway**
 
 ```
-npm local-start-api
+npm local-api
 ```
 
 ## Packaging and deployment

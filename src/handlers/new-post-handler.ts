@@ -24,13 +24,12 @@ export default async (event: any) => {
         }
     }
 
-    await documentClient.put(params).promise()
-    .then(() => {
+    await documentClient.put(params).promise().then(() => {
         console.log('posted in db');
-    })
-    .catch((err)=> {
-        console.log(err);
-    });
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
 
     await snsClient.publish({
             Message: recordId,
@@ -38,6 +37,9 @@ export default async (event: any) => {
         }).promise();
 
     return {
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
         statusCode: 200
     }
 };

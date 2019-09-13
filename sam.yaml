@@ -52,6 +52,19 @@ Resources:
           Properties:
             Path: /api
             Method: post
+
+  GetPostLambda:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: './dist'
+      Handler: index.getPostLambda
+      Role: !GetAtt MyLambdaRole.Arn
+      Events:
+        Api2:
+          Type: Api 
+          Properties:
+            Path: /api/{id}
+            Method: get
   
   AudioConverterLambda:
     Type: AWS::Serverless::Function 

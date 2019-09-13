@@ -1,15 +1,12 @@
 import AWS from 'aws-sdk';
-import { v1 as uuid } from 'uuid';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-
-
 
 export default async (event: any) => {
     const documentClient = new DocumentClient();
     const polly = new AWS.Polly();
     const s3 = new AWS.S3();
     const postId = event["Records"][0]["Sns"]["Message"];
-    const url = "https://s3.amazonaws.com/" + process.env.BUCKET_NAME + "/" + postId + ".mp3";
+    const url = "https://"+process.env.BUCKET_NAME+".s3.us-east-2.amazonaws.com/" + postId + ".mp3";
 
     console.log("Text to Speech function. Post ID in DynamoDB: " + postId);
     
