@@ -1,7 +1,8 @@
-import { DynamoDB, SNS } from 'aws-sdk';
+import { SNS } from 'aws-sdk';
+import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import { v1 as uuid } from 'uuid';
 
-const documentClient = new DynamoDB.DocumentClient();
+const documentClient = new DocumentClient();
 const snsClient = new SNS();
 
 export default async (event: any) => {

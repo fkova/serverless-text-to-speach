@@ -10,6 +10,8 @@ Globals:
           Ref: postsTable
         SNS_TOPIC:
           Ref: SnsTopic
+        BUCKET_NAME:
+          Ref: AudioBucket
   Api:
     Cors:
       AllowMethods: '''*'''
@@ -41,7 +43,7 @@ Resources:
   NewPostLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://rahzel-package/079f21866fd84bce851092745f07bd46
+      CodeUri: s3://rahzel-package/ef11c7216c7c4be13444e5cfa5cd228e
       Handler: index.newPostLambda
       Role:
         Fn::GetAtt:
@@ -56,7 +58,7 @@ Resources:
   AudioConverterLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://rahzel-package/079f21866fd84bce851092745f07bd46
+      CodeUri: s3://rahzel-package/ef11c7216c7c4be13444e5cfa5cd228e
       Handler: index.audioConverterLambda
       Role:
         Fn::GetAtt:
@@ -114,6 +116,7 @@ Resources:
           - polly:SynthesizeSpeech
           - dynamodb:Query
           - dynamodb:Scan
+          - dynamodb:GetItem
           - dynamodb:PutItem
           - dynamodb:UpdateItem
           - sns:Publish
@@ -124,6 +127,14 @@ Resources:
           - logs:CreateLogStream
           - logs:PutLogEvents
           Resource:
+          - Fn::GetAtt:
+            - postsTable
+            - Arn
+          - Fn::GetAtt:
+            - AudioBucket
+            - Arn
+          - Ref: SnsTopic
+          - arn:aws:logs:*:*:*
           - '*'
 Outputs:
   WebsiteURL:

@@ -9,6 +9,7 @@ Globals:
       Variables:
         DYNAMO_TABLE: !Ref postsTable
         SNS_TOPIC: !Ref SnsTopic
+        BUCKET_NAME: !Ref AudioBucket
   Api:
     Cors:
       AllowMethods: "'*'"
@@ -112,6 +113,7 @@ Resources:
             "polly:SynthesizeSpeech",
             "dynamodb:Query",
             "dynamodb:Scan",
+            "dynamodb:GetItem",
             "dynamodb:PutItem",
             "dynamodb:UpdateItem",
             "sns:Publish",
@@ -123,10 +125,11 @@ Resources:
             "logs:PutLogEvents"
           ]
           Resource: [
-            # !GetAtt postsTable.Arn,
-            # !GetAtt AudioBucket.Arn,
-            # !Ref SnsTopic,
-            '*'
+            !GetAtt postsTable.Arn,
+            !GetAtt AudioBucket.Arn,
+            !Ref SnsTopic,
+            "arn:aws:logs:*:*:*",
+            "*"
           ]
 
 Outputs:
