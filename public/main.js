@@ -1,4 +1,5 @@
-const apiEndpoint = "https://dzu0bd5gie.execute-api.us-east-2.amazonaws.com/Prod/api"
+//const apiEndpoint = "https://dzu0bd5gie.execute-api.us-east-2.amazonaws.com/Prod/api"
+const apiEndpoint = "https://ph8xth52yj.execute-api.us-east-2.amazonaws.com/Prod/api"
 
 $(document).ready(($)=> {
     $('.loader').show();
@@ -39,7 +40,7 @@ const updateList = async () => {
 const postText = async () => {
     var inputText = $('#textBox1').val();
     $('#textBox1').val(''); 
-
+    $('.loader').show();
     
     await $.post(apiEndpoint, JSON.stringify({
         voice: "Amy",

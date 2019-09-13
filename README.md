@@ -31,11 +31,6 @@ or
 npm run bpd
 ```
 
-## Fetch, tail, and filter Lambda function logs
-
-```bash
-sam logs -n HelloWorldFunction --stack-name tts-microservice --tail
-```
 ## Testing
 
 ```
